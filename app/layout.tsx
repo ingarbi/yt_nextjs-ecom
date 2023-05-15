@@ -13,9 +13,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header>This is a header</header>
+        {/* <header>This is a header</header> */}
         {children}
-        <footer>This is a footer</footer>
+        {/* <footer>This is a footer</footer> */}
       </body>
     </html>
   );
