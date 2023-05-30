@@ -1,4 +1,5 @@
 import ProductImage from "@/components/ProductImage";
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: {
@@ -7,7 +8,9 @@ type Props = {
 };
 
 async function ProductPage({ params: { id } }: Props) {
-  // console.log(props);
+
+  try {
+      // console.log(props);
   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
   const product: Product = await res.json();
   return (
@@ -29,6 +32,10 @@ async function ProductPage({ params: { id } }: Props) {
       </div>
     </div>
   );
+  } catch (error) {
+    notFound()
+  }
+
 }
 
 export default ProductPage;
