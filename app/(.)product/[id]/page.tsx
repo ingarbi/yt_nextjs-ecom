@@ -12,12 +12,15 @@ function Modal() {
   const id = useParams().id;
   const [product, setProduct] = useState<Product>();
   const router = useRouter();
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     async function fetchProduct() {
+      setLoading(true)
       const res = await fetch(`https://fakestoreapi.com/products/${id}`);
       const product: Product = await res.json();
       setProduct(product);
+      setLoading(false)
     }
     fetchProduct();
   }, [id]);
@@ -40,6 +43,9 @@ function Modal() {
         <div className="flex min-h-full items-center justify-center p-4">
           {/* The actual dialog panel  */}
           <Dialog.Panel className="mx-auto max-w-3xl rounded bg-white p-10">
+            {loading ? (
+              <div className="h-8 w-8 rounded-full border-2 border-dotted border-blue-600 animate-spin"  />
+            ) : (
             <div className="flex gap-x-8 h-96">
               {product?.image && (
                 <div className="relative w-72 h-full hidden md:inline">
@@ -90,6 +96,7 @@ function Modal() {
                 </div>
               </div>
             </div>
+            )}
           </Dialog.Panel>
         </div>
       </div>
